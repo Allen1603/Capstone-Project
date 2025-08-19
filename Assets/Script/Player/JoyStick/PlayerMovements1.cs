@@ -11,7 +11,7 @@ public class PlayerMovements1 : MonoBehaviour
     private Vector2 moveInput;
     private Animator animator;
 
-    // 🎮 References
+    //  References
     public Joystick joystick;   // assign in Inspector
     public Button attackButton; // assign in Inspector
 

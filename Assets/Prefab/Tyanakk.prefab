@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4764264557666012878}
   - component: {fileID: 832338240022566365}
   m_Layer: 0
-  m_Name: Enemy 1
+  m_Name: Tyanakk
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
