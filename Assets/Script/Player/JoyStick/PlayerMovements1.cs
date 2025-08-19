@@ -39,7 +39,7 @@ public class PlayerMovements1 : MonoBehaviour
         else if (!isAttacking)
         {
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
-            animator.SetBool("isMoving", false);
+           // animator.SetBool("isMoving", false);
         }
     }
 
@@ -63,7 +63,7 @@ public class PlayerMovements1 : MonoBehaviour
 
         // Play walk animation
         bool isMoving = moveInput.sqrMagnitude > 0.01f;
-        animator.SetBool("isMoving", isMoving);
+        //animator.SetBool("isMoving", isMoving);
     }
 
     void DoAttack()
