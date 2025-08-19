@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI; // needed for Button
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovements1 : MonoBehaviour
@@ -10,8 +11,11 @@ public class PlayerMovements1 : MonoBehaviour
     private Vector2 moveInput;
     private Animator animator;
 
-    // 🎮 Reference to Joystick
-    public Joystick joystick; // assign in Inspector
+    // 🎮 References
+    public Joystick joystick;   // assign in Inspector
+    public Button attackButton; // assign in Inspector
+
+    private bool isAttacking;
 
     void Awake()
     {
@@ -19,13 +23,20 @@ public class PlayerMovements1 : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    void Start()
+    {
+        // Add listener for attack button
+        if (attackButton != null)
+            attackButton.onClick.AddListener(DoAttack);
+    }
+
     void FixedUpdate()
     {
-        if (canMove)
+        if (canMove && !isAttacking) // prevent moving while attacking (optional)
         {
             HandleMovement();
         }
-        else
+        else if (!isAttacking)
         {
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
             animator.SetBool("isMoving", false);
@@ -53,5 +64,26 @@ public class PlayerMovements1 : MonoBehaviour
         // Play walk animation
         bool isMoving = moveInput.sqrMagnitude > 0.01f;
         animator.SetBool("isMoving", isMoving);
+    }
+
+    void DoAttack()
+    {
+        if (!isAttacking) // prevent spamming
+        {
+            StartCoroutine(AttackRoutine());
+        }
+    }
+
+    private System.Collections.IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+        // animator.SetTrigger("Attack"); // trigger attack animation
+
+        Debug.Log("Nag Attackkkkkkkk!!!");
+        rb.velocity = Vector3.zero;    // stop moving during attack
+
+        yield return new WaitForSeconds(0.5f); // duration of attack animation
+
+        isAttacking = false;
     }
 }
